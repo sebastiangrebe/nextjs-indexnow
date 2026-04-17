@@ -1,6 +1,6 @@
 {
   "name": "nextjs-indexnow",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "IndexNow integration for Next.js — submit added and changed URLs to Bing, Yandex, and other IndexNow search engines after every build.",
   "keywords": [
     "nextjs",

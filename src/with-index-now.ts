@@ -8,7 +8,7 @@ import type { IndexNowOptions } from "./types.js";
  * customizations, and we want the behavior to be identical across bundlers.
  * Run `nextjs-indexnow` from your `postbuild` script.
  */
-export function withIndexNow<Config extends Record<string, unknown>>(
+export function withIndexNow<Config extends object>(
   nextConfig: Config,
   options: IndexNowOptions,
 ): Config & { __indexnow: IndexNowOptions } {
