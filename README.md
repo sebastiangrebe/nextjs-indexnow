@@ -152,21 +152,25 @@ nextjs-indexnow init        Generate a key and write public/<key>.txt
 nextjs-indexnow --help
 ```
 
-## Standalone `indexnow.config.ts`
+## How config is resolved
 
-If you can't use `withIndexNow` (e.g. your `next.config` can't be imported from the CLI), drop an `indexnow.config.ts` next to it:
+`withIndexNow` attaches your options to the exported Next config. When you run `next build`, Next writes the fully-resolved, merged config (including `__indexnow`) to `.next/required-server-files.json`. The CLI reads that JSON after the build. This means:
 
-```ts
-// indexnow.config.ts
-import type { IndexNowOptions } from "nextjs-indexnow";
+- You can use `next.config.ts`, `.mjs`, `.js`, or `.cjs` — whichever Next accepts, we accept.
+- No TS loader is needed in the CLI, and we don't re-parse your config.
 
+If you can't use `withIndexNow` — e.g. a setup where options need to live outside `next.config` — drop a standalone `indexnow.config.mjs` next to your project root:
+
+```js
+// indexnow.config.mjs
+/** @type {import('nextjs-indexnow').IndexNowOptions} */
 export default {
   host: "example.com",
   exclude: ["/api/**"],
-} satisfies IndexNowOptions;
+};
 ```
 
-The CLI prefers this file over `next.config`.
+The Next-build JSON takes precedence; the standalone file is the fallback.
 
 ## Why a `postbuild` CLI and not a build hook?
 

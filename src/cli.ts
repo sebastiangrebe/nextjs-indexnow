@@ -18,7 +18,7 @@ async function main(): Promise<void> {
     const options = await loadIndexNowConfig(cwd);
     if (!options) {
       console.error(
-        "[nextjs-indexnow] No config found. Wrap your next.config with `withIndexNow` or create `indexnow.config.ts`.",
+        "[nextjs-indexnow] No config found. Either wrap your next.config with `withIndexNow` and run this after `next build`, or create `indexnow.config.mjs`.",
       );
       process.exit(1);
     }
