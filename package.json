@@ -1,0 +1,74 @@
+{
+  "name": "nextjs-indexnow",
+  "version": "0.1.0",
+  "description": "IndexNow integration for Next.js — submit added and changed URLs to Bing, Yandex, and other IndexNow search engines after every build.",
+  "keywords": [
+    "nextjs",
+    "next",
+    "indexnow",
+    "seo",
+    "bing",
+    "yandex",
+    "search",
+    "sitemap"
+  ],
+  "author": "Sebastian Grebe",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastiangrebe/nextjs-indexnow.git"
+  },
+  "homepage": "https://github.com/sebastiangrebe/nextjs-indexnow#readme",
+  "bugs": "https://github.com/sebastiangrebe/nextjs-indexnow/issues",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "bin": {
+    "nextjs-indexnow": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src test",
+    "format": "biome format --write src test",
+    "prepublishOnly": "pnpm build && pnpm test"
+  },
+  "peerDependencies": {
+    "next": ">=15.0.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "picomatch": "^4.0.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.8",
+    "@types/node": "^22.10.0",
+    "@types/picomatch": "^3.0.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
