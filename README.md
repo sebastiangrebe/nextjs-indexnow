@@ -154,10 +154,11 @@ nextjs-indexnow --help
 
 ## How config is resolved
 
-`withIndexNow` attaches your options to the exported Next config. When you run `next build`, Next writes the fully-resolved, merged config (including `__indexnow`) to `.next/required-server-files.json`. The CLI reads that JSON after the build. This means:
+`withIndexNow` writes your options to a sidecar file at `node_modules/.cache/nextjs-indexnow/options.json` the moment Next imports your config. The CLI reads that file after the build. This means:
 
-- You can use `next.config.ts`, `.mjs`, `.js`, or `.cjs` — whichever Next accepts, we accept.
-- No TS loader is needed in the CLI, and we don't re-parse your config.
+- You can use `next.config.ts`, `.mjs`, `.js`, or `.cjs` — we don't parse your config, so whatever Next loads works.
+- The function returns your Next config unchanged, so Next's config validator won't warn about unknown keys.
+- The sidecar lives under `node_modules/.cache`, which is already gitignored everywhere.
 
 If you can't use `withIndexNow` — e.g. a setup where options need to live outside `next.config` — drop a standalone `indexnow.config.mjs` next to your project root:
 
