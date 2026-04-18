@@ -17,10 +17,17 @@ async function main(): Promise<void> {
   if (cmd === "run" || cmd === undefined) {
     const options = await loadIndexNowConfig(cwd);
     if (!options) {
-      console.error(
-        "[nextjs-indexnow] No config found. Either wrap your next.config with `withIndexNow` and run this after `next build`, or create `indexnow.config.mjs`.",
+      console.warn(
+        "[nextjs-indexnow] No config found — skipping. Wrap your next.config with `withIndexNow` or create `indexnow.config.mjs` to enable.",
       );
-      process.exit(1);
+      return;
+    }
+    const keyEnv = options.keyEnv ?? "INDEXNOW_KEY";
+    if (!process.env[keyEnv]) {
+      console.warn(
+        `[nextjs-indexnow] env var ${keyEnv} is not set — skipping. Run \`nextjs-indexnow init\` to generate a key.`,
+      );
+      return;
     }
     const result = await runIndexNow({ options: { ...options, cwd } });
     if (!result.ok) process.exit(1);
